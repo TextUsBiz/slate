@@ -168,7 +168,7 @@ List all auto replies for the current account
 ```shell
 curl /auto_replies \
   --request POST \
-  --data '{"auto_reply":{"id":30,"is_active":null,"message":null}}' \
+  --data '{"id":134,"is_active":null,"message":null}' \
   --verbose
 ```
 
@@ -243,7 +243,7 @@ Retrieve a single auto reply
 ```shell
 curl /auto_replies/:id \
   --request PUT \
-  --data '{"auto_reply":{"id":30,"is_active":null,"message":null}}' \
+  --data '{"id":134,"is_active":null,"message":null}' \
   --verbose
 ```
 
@@ -369,7 +369,7 @@ List all broadcasts for the current account
 ```shell
 curl /broadcasts \
   --request POST \
-  --data '{"broadcast":{"deliver_at":null,"from_template":null,"group":null,"message_body":null,"sender":null}}' \
+  --data '{"deliver_at":null,"from_template":null,"group":null,"message_body":null,"sender":null}' \
   --verbose
 ```
 
@@ -515,7 +515,7 @@ List all contacts for the current account
 ```shell
 curl /contacts \
   --request POST \
-  --data '{"contact":{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":266,"last_name":null,"notes":null,"phone":null}}' \
+  --data '{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":712,"last_name":null,"notes":null,"phone":null}' \
   --verbose
 ```
 
@@ -607,7 +607,7 @@ Retrieve a single contact by id
 ```shell
 curl /contacts/:id \
   --request PUT \
-  --data '{"contact":{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":266,"last_name":null,"notes":null,"phone":null}}' \
+  --data '{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":712,"last_name":null,"notes":null,"phone":null}' \
   --verbose
 ```
 
@@ -746,7 +746,7 @@ List all groups for the current account
 ```shell
 curl /groups \
   --request POST \
-  --data '{"group":{"name":null}}' \
+  --data '{"name":null}' \
   --verbose
 ```
 
@@ -820,7 +820,7 @@ Retrieve a single group
 ```shell
 curl /groups/:id \
   --request PUT \
-  --data '{"group":{"name":null}}' \
+  --data '{"name":null}' \
   --verbose
 ```
 
@@ -979,7 +979,7 @@ List contacts for the group
 ```shell
 curl /groups/:id/contacts/:contact_id \
   --request PUT \
-  --data '{"group":{"name":null}}' \
+  --data '{"name":null}' \
   --verbose
 ```
 
@@ -1097,7 +1097,7 @@ List all message signatures for the current account
 ```shell
 curl /message_signatures \
   --request POST \
-  --data '{"message_signature":{"content":null,"is_active":null}}' \
+  --data '{"content":null,"is_active":null}' \
   --verbose
 ```
 
@@ -1172,7 +1172,7 @@ Retrieve a single message signature
 ```shell
 curl /message_signatures/:id \
   --request PUT \
-  --data '{"message_signature":{"content":null,"is_active":null}}' \
+  --data '{"content":null,"is_active":null}' \
   --verbose
 ```
 
@@ -1290,7 +1290,7 @@ List all message templates for the current account
 ```shell
 curl /message_templates \
   --request POST \
-  --data '{"message_template":{"content":null,"title":null}}' \
+  --data '{"content":null,"title":null}' \
   --verbose
 ```
 
@@ -1365,7 +1365,7 @@ Retrieve a single message template
 ```shell
 curl /message_templates/:id \
   --request PUT \
-  --data '{"message_template":{"content":null,"title":null}}' \
+  --data '{"content":null,"title":null}' \
   --verbose
 ```
 
@@ -1497,7 +1497,7 @@ List all messages for the current account
 ```shell
 curl /messages \
   --request POST \
-  --data '{"message":{"id":917,"read":null}}' \
+  --data '{"id":236,"read":null}' \
   --verbose
 ```
 
@@ -1609,7 +1609,7 @@ List all messages to and from the specified contact
 ```shell
 curl /messages/:id \
   --request PUT \
-  --data '{"message":{"id":917,"read":null}}' \
+  --data '{"id":236,"read":null}' \
   --verbose
 ```
 
@@ -1702,7 +1702,7 @@ List all opt outs for the current organization
 ```shell
 curl /opt_outs \
   --request POST \
-  --data '{"opt_out":{"country":null,"phone":null}}' \
+  --data '{"country":null,"phone":null}' \
   --verbose
 ```
 
@@ -2011,7 +2011,7 @@ List all web hooks accessible by the current user
 ```shell
 curl /web_hooks \
   --request POST \
-  --data '{"web_hook":{"url":null}}' \
+  --data '{"url":null}' \
   --verbose
 ```
 
@@ -2083,7 +2083,7 @@ Retrieve a single web hook
 ```shell
 curl /web_hooks/:id \
   --request PUT \
-  --data '{"web_hook":{"url":null}}' \
+  --data '{"url":null}' \
   --verbose
 ```
 
