@@ -1,0 +1,2890 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Overview Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all_nosearch.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='#'>Sign Up for a Developer Key</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="overview">Overview</h1>
+
+<p>The TextUs API is a RESTful API that allows your company to integrate your TextUs messages and contacts with your CRM or any other tool. The majority of functionality within our web application is accessible via the API, so the integration possibilities are endless.</p>
+
+<h2 id="current-version">Current Version</h2>
+
+<p>By default, all requests receive the v2 version of the API. We encourage you to explicitly request this version via the Accept header.</p>
+
+<p><code class="prettyprint">Accept: application/vnd.textus-v2</code></p>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>The TextUs API supports HTTP Basic authentication. To authenticate, base-64 encode your username and api key (separated with a colon) and place the result in an &lsquo;Authorization&rsquo; header. You may authenticate with your username and password, or with your username and api key.</p>
+
+<p><code class="prettyprint">Authorization: {username}:{api_key}</code></p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>Many API methods take optional parameters. For GET requests, any parameters not specified as a segment in the path can be passed as an HTTP query string parameter.</p>
+
+<p>For POST, PATCH, PUT, and DELETE requests, parameters not included in the URL should be encoded as JSON with a Content-Type of &#39;application/json&rsquo;.</p>
+
+<h2 id="errors">Errors</h2>
+
+<blockquote>
+<p>The JSON response body for an error is structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Validation failed: Phone has already been taken"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>TextUs uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that failed given the information provided (e.g., a required parameter was omitted, contact creation failed, etc.), and codes in the 5xx range indicate an error with TextUs servers.</p>
+
+<h2 id="pagination">Pagination</h2>
+<pre class="highlight shell"><code>curl /contacts?page<span class="o">=</span>1&amp;per_page<span class="o">=</span>25
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>This will return the first 25 contacts and a JSON Response header structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"Date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"Via"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"X-Total"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"Connection"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"X-Runtime"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"Content-Length"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"X-Request-Id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"X-Per-Page"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"X-Offset"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"Server"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"Etag"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"Strict-Transport-Security"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"X-Next-Page"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"Cache-Control"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"X-Total-Pages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"Content-Type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"X-Page"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Requests that return multiple items will be paginated to 25 items by default. You can specify further pages with the ?page parameter. For some resources, you can also set a custom page size up to 100 with the ?per_page parameter. Note that for technical reasons not all endpoints respect the ?per_page parameter, see events for example.</p>
+
+<p>Note: the response headers for these requests include:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Key</th>
+<th style="text-align: left">Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">X-Offset</td>
+<td style="text-align: left">The page offset requested.</td>
+</tr>
+<tr>
+<td style="text-align: center">X-Page</td>
+<td style="text-align: left">The current page requested.</td>
+</tr>
+<tr>
+<td style="text-align: center">X-Per-Page</td>
+<td style="text-align: left">The number of resources requested per page.</td>
+</tr>
+<tr>
+<td style="text-align: center">X-Total</td>
+<td style="text-align: left">The total number of resources.</td>
+</tr>
+<tr>
+<td style="text-align: center">X-Total-Pages</td>
+<td style="text-align: left">The total number of pages for the requested resources.</td>
+</tr>
+</tbody></table>
+
+<h2 id="rate-limiting">Rate Limiting</h2>
+
+<p>For broadcast requests, you can make up to 1 request per minute. For all other requests, you can make up to 1,000 requests per hour.</p>
+
+<h2 id="cross-origin-resource-sharing-cors">Cross Origin Resource Sharing (CORS)</h2>
+
+<p>The API currently <strong>does not</strong> support Cross Origin Resource Sharing (CORS) for AJAX requests from any origin.</p>
+
+<h2 id="webhooks">Webhooks</h2>
+
+<blockquote>
+<p>The JSON payload is structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"body"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"broadcast_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"recipient_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"recipient_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Webhooks allow you to build or set up integrations which subscribe to messaging events on TextUs. When a message is sent or received, we&rsquo;ll send a HTTP POST payload to the webhook&rsquo;s configured URL. Webhooks can be used to log messages for a contact in an external CRM or ATS or any other creative use.</p>
+
+<h2 id="testing-the-api">Testing the API</h2>
+
+<p>Below is a static list of all of the accessible TextUs resources with an example request and response. To test out a live version of the API for your account, please sign in or sign up and navigate to the <a href="https://app.textus.com/api/docs">API docs</a>.</p>
+
+<h1 id="auto-replies">Auto Replies</h1>
+
+<h2 id="list-all-auto-replies-for-the-current-account">List all auto replies for the current account</h2>
+<pre class="highlight shell"><code>curl /auto_replies
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all auto replies for the current account</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-new-account-auto-reply">Create a new account auto reply</h2>
+<pre class="highlight shell"><code>curl /auto_replies <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"auto_reply":{"id":30,"is_active":null,"message":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create a new account auto reply</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">is_active</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Auto reply status (true or false)</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">message</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Auto Reply Message</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-single-auto-reply">Retrieve a single auto reply</h2>
+<pre class="highlight shell"><code>curl /auto_replies/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single auto reply</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-single-auto-reply">Update a single auto reply</h2>
+<pre class="highlight shell"><code>curl /auto_replies/:id <span class="se">\</span>
+  --request PUT <span class="se">\</span>
+  --data <span class="s1">'{"auto_reply":{"id":30,"is_active":null,"message":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Update a single auto reply</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">PUT</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">is_active</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Auto reply status (true or false)</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">message</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Auto reply message</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-single-auto-reply">Delete a single auto reply</h2>
+<pre class="highlight shell"><code>curl /auto_replies/:id <span class="se">\</span>
+  --request DELETE <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Delete a single auto reply</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">DELETE</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="broadcasts">Broadcasts</h1>
+
+<h2 id="list-all-broadcasts-for-the-current-account">List all broadcasts for the current account</h2>
+<pre class="highlight shell"><code>curl /broadcasts
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"group_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"deliver_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"group_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"unsent_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sent_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"send_errors"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all broadcasts for the current account</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">last_broadcast_to_each_group</td>
+<td style="text-align: left">Virtus::Attribute::Boolean</td>
+<td style="text-align: left">Displays the last broadcast to each unique group</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-and-send-a-broadcast">Create and send a broadcast</h2>
+<pre class="highlight shell"><code>curl /broadcasts <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"broadcast":{"deliver_at":null,"from_template":null,"group":null,"message_body":null,"sender":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"group_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"deliver_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"group_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"total_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"unsent_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sent_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"send_errors"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create and send a broadcast</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">deliver_at</td>
+<td style="text-align: left">DateTime</td>
+<td style="text-align: left">Delivery Date and Time (to schedule messages)</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">from_template</td>
+<td style="text-align: left">Virtus::Attribute::Boolean</td>
+<td style="text-align: left">Whether or not a broadcast is from a template</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">group</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The id of the group receiving the broadcast</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">message_body</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The message content of the broadcast</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">sender</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The sending user&rsquo;s id</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-single-broadcast">Retrieve a single broadcast</h2>
+<pre class="highlight shell"><code>curl /broadcasts/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"group_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"deliver_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"group_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"total_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"unsent_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sent_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"send_errors"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single broadcast</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="contacts">Contacts</h1>
+
+<h2 id="list-all-contacts-for-the-current-account">List all contacts for the current account</h2>
+<pre class="highlight shell"><code>curl /contacts
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"flagged"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"line_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"opted_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all contacts for the current account</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">order_by_name_then_phone</td>
+<td style="text-align: left">Virtus::Attribute::Boolean</td>
+<td style="text-align: left">Orders by last name, first name, then phone number (default order is created_at)</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">q</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Search Query (searches against phone, first_name, last_name, business_name)</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-new-account-contact">Create a new account contact</h2>
+<pre class="highlight shell"><code>curl /contacts <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"contact":{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":266,"last_name":null,"notes":null,"phone":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"flagged"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"line_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"opted_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create a new account contact</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">business_name</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact business name</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">country</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Two-digit country code for contact phone number.  Defaults to the account&rsquo;s country code.</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">first_name</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact first name</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">last_name</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact last name</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">phone</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact phone number</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-single-contact-by-id">Retrieve a single contact by id</h2>
+<pre class="highlight shell"><code>curl /contacts/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"flagged"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"line_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"opted_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single contact by id</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-single-contact">Update a single contact</h2>
+<pre class="highlight shell"><code>curl /contacts/:id <span class="se">\</span>
+  --request PUT <span class="se">\</span>
+  --data <span class="s1">'{"contact":{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":266,"last_name":null,"notes":null,"phone":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"flagged"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"line_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"opted_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Update a single contact</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">PUT</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">business_name</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact business name</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">country</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Two-digit country code for contact phone number</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">first_name</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact first name</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">flagged</td>
+<td style="text-align: left">Virtus::Attribute::Boolean</td>
+<td style="text-align: left">Contact flagged tag</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">last_name</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact last name</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">notes</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact notes</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">phone</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Contact phone number</td>
+</tr>
+</tbody></table>
+<pre class="highlight shell"><code>curl /contacts/:id <span class="se">\</span>
+  --request DELETE <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"business_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"flagged"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"line_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"opted_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">DELETE</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="groups">Groups</h1>
+
+<h2 id="list-all-groups-for-the-current-account">List all groups for the current account</h2>
+<pre class="highlight shell"><code>curl /groups
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all groups for the current account</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">order_by</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Order Query (orders by attribute)</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">q</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Search Query (searches against group name)</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-new-account-group">Create a new account group</h2>
+<pre class="highlight shell"><code>curl /groups <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"group":{"name":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create a new account group</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">name</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Name of the group</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-single-group">Retrieve a single group</h2>
+<pre class="highlight shell"><code>curl /groups/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single group</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-single-group">Update a single group</h2>
+<pre class="highlight shell"><code>curl /groups/:id <span class="se">\</span>
+  --request PUT <span class="se">\</span>
+  --data <span class="s1">'{"group":{"name":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Update a single group</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">PUT</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">name</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Name of the group</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-single-group">Delete a single group</h2>
+<pre class="highlight shell"><code>curl /groups/:id <span class="se">\</span>
+  --request DELETE <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Delete a single group</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">DELETE</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="list-broadcasts-for-the-group">List broadcasts for the group</h2>
+<pre class="highlight shell"><code>curl /groups/:id/broadcasts
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>List broadcasts for the group</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">broadcasts</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="list-contacts-for-the-group">List contacts for the group</h2>
+<pre class="highlight shell"><code>curl /groups/:id/contacts
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>List contacts for the group</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">contacts</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">order_by</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Order Query (orders by attribute)</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="add-a-contact-to-a-group">Add a contact to a group</h2>
+<pre class="highlight shell"><code>curl /groups/:id/contacts/:contact_id <span class="se">\</span>
+  --request PUT <span class="se">\</span>
+  --data <span class="s1">'{"group":{"name":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Add a contact to a group</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">PUT</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">contact_id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">contact</code></td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:contact_id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="remove-a-contact-from-a-group">Remove a contact from a group</h2>
+<pre class="highlight shell"><code>curl /groups/:id/contacts/:contact_id <span class="se">\</span>
+  --request DELETE <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Remove a contact from a group</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">DELETE</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">contact_id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">contact</code></td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:contact_id</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="message-signatures">Message Signatures</h1>
+
+<h2 id="list-all-message-signatures-for-the-current-account">List all message signatures for the current account</h2>
+<pre class="highlight shell"><code>curl /message_signatures
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all message signatures for the current account</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-new-message-signature">Create a new message signature</h2>
+<pre class="highlight shell"><code>curl /message_signatures <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"message_signature":{"content":null,"is_active":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create a new message signature</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">content</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Message signature content</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">is_active</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Message signature activation status (true or false)</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-single-message-signature">Retrieve a single message signature</h2>
+<pre class="highlight shell"><code>curl /message_signatures/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single message signature</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-single-message-signature">Update a single message signature</h2>
+<pre class="highlight shell"><code>curl /message_signatures/:id <span class="se">\</span>
+  --request PUT <span class="se">\</span>
+  --data <span class="s1">'{"message_signature":{"content":null,"is_active":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Update a single message signature</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">PUT</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">content</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Message signature content</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">is_active</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Message signature activation status (true or false)</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-single-message-signature">Delete a single message signature</h2>
+<pre class="highlight shell"><code>curl /message_signatures/:id <span class="se">\</span>
+  --request DELETE <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"is_active"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Delete a single message signature</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">DELETE</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="message-templates">Message Templates</h1>
+
+<h2 id="list-all-message-templates-for-the-current-account">List all message templates for the current account</h2>
+<pre class="highlight shell"><code>curl /message_templates
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all message templates for the current account</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-new-message-template">Create a new message template</h2>
+<pre class="highlight shell"><code>curl /message_templates <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"message_template":{"content":null,"title":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create a new message template</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">content</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Message template content</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">title</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Message template title</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-single-message-template">Retrieve a single message template</h2>
+<pre class="highlight shell"><code>curl /message_templates/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single message template</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-single-message-template">Update a single message template</h2>
+<pre class="highlight shell"><code>curl /message_templates/:id <span class="se">\</span>
+  --request PUT <span class="se">\</span>
+  --data <span class="s1">'{"message_template":{"content":null,"title":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Update a single message template</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">PUT</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">content</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Message template content</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">is_active</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Message template activation status (true or false)</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-single-message-template">Delete a single message template</h2>
+<pre class="highlight shell"><code>curl /message_templates/:id <span class="se">\</span>
+  --request DELETE <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Delete a single message template</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">DELETE</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="messages">Messages</h1>
+
+<h2 id="list-all-messages-for-the-current-account">List all messages for the current account</h2>
+<pre class="highlight shell"><code>curl /messages
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"broadcast_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"deliver_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"from_autoresponse"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sender_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"receiver_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"receiver_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sender_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sender_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"receiver_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"receiver_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all messages for the current account</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">last_message_to_each_contact</td>
+<td style="text-align: left">Virtus::Attribute::Boolean</td>
+<td style="text-align: left">Displays the last message to each unique contact</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">q</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Search Query (searches against message body)</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">scope</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Filter messages by: &#39;flagged&rsquo;, &#39;unread&rsquo;, or &#39;with_notes&rsquo;</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-and-send-a-message">Create and send a message</h2>
+<pre class="highlight shell"><code>curl /messages <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"message":{"id":917,"read":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"broadcast_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"deliver_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"from_autoresponse"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"receiver_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"receiver_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"receiver_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"receiver_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create and send a message</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">content</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The message content</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">deliver_at</td>
+<td style="text-align: left">DateTime</td>
+<td style="text-align: left">Delivery Date and Time (to schedule messages)</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">receiver</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The receiving contact&rsquo;s id or phone number</td>
+</tr>
+</tbody></table>
+
+<p>(international format &ndash; must begin with a + sign)
+        If no contact exists with that phone number, one will be created automatically
+        with first name &#39;New&rsquo; and last name &#39;Contact.&rsquo;
+ |
+| ✓ | sender |  String | The sending user&rsquo;s id or email address |</p>
+
+<h2 id="list-all-messages-to-and-from-the-specified-contact">List all messages to and from the specified contact</h2>
+<pre class="highlight shell"><code>curl /messages/:contact_id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"broadcast_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"deliver_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"from_autoresponse"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sender_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"receiver_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"receiver_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sender_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sender_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"receiver_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"receiver_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all messages to and from the specified contact</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">contact_id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">contact</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-message-39-s-read-status">Update a message&rsquo;s read status</h2>
+<pre class="highlight shell"><code>curl /messages/:id <span class="se">\</span>
+  --request PUT <span class="se">\</span>
+  --data <span class="s1">'{"message":{"id":917,"read":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"read"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"broadcast_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"deliver_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"from_autoresponse"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"receiver_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"receiver_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"sender_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"receiver_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"receiver_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Update a message&rsquo;s read status</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">PUT</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">read</td>
+<td style="text-align: left">Virtus::Attribute::Boolean</td>
+<td style="text-align: left">Message read status (true or false)</td>
+</tr>
+</tbody></table>
+
+<h1 id="opt-outs">Opt Outs</h1>
+
+<h2 id="list-all-opt-outs-for-the-current-organization">List all opt outs for the current organization</h2>
+<pre class="highlight shell"><code>curl /opt_outs
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all opt outs for the current organization</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">q</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Search Query (searches against phone)</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-new-opt-out">Create a new opt out</h2>
+<pre class="highlight shell"><code>curl /opt_outs <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"opt_out":{"country":null,"phone":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create a new opt out</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">country</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Two-digit country code for opt out phone number</td>
+</tr>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">phone</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Opt out phone number</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-single-opt-out">Retrieve a single opt out</h2>
+<pre class="highlight shell"><code>curl /opt_outs/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single opt out</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-single-opt-out">Delete a single opt out</h2>
+<pre class="highlight shell"><code>curl /opt_outs/:id <span class="se">\</span>
+  --request DELETE <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Delete a single opt out</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">DELETE</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="users">Users</h1>
+
+<h2 id="list-all-users-for-the-current-account">List all users for the current account</h2>
+<pre class="highlight shell"><code>curl /users
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_sign_in_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"should_play_audio"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"forward_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all users for the current account</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">include_archived</td>
+<td style="text-align: left">Virtus::Attribute::Boolean</td>
+<td style="text-align: left">Include archived users</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-the-current-user">Retrieve the current user</h2>
+<pre class="highlight shell"><code>curl /users/current
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_sign_in_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"should_play_audio"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"forward_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve the current user</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+</tbody></table>
+
+<h2 id="retrieve-a-single-user">Retrieve a single user</h2>
+<pre class="highlight shell"><code>curl /users/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"last_sign_in_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"should_play_audio"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"forward_messages"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single user</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h1 id="web-hooks">Web Hooks</h1>
+
+<h2 id="list-all-web-hooks-accessible-by-the-current-user">List all web hooks accessible by the current user</h2>
+<pre class="highlight shell"><code>curl /web_hooks
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>List all web hooks accessible by the current user</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">offset</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Pad a number of results.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Page offset to fetch.</td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">per_page</td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">Number of results to return per page.</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-new-web-hook">Create a new web hook</h2>
+<pre class="highlight shell"><code>curl /web_hooks <span class="se">\</span>
+  --request POST <span class="se">\</span>
+  --data <span class="s1">'{"web_hook":{"url":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Create a new web hook</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">POST</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">url</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">URL where web hook payload will be delivered</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-single-web-hook">Retrieve a single web hook</h2>
+<pre class="highlight shell"><code>curl /web_hooks/:id
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve a single web hook</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">GET</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-single-web-hook">Update a single web hook</h2>
+<pre class="highlight shell"><code>curl /web_hooks/:id <span class="se">\</span>
+  --request PUT <span class="se">\</span>
+  --data <span class="s1">'{"web_hook":{"url":null}}'</span> <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Update a single web hook</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">PUT</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+<tr>
+<td style="text-align: center"></td>
+<td style="text-align: left">url</td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Web hook URL (must be a valid URL)</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-single-web-hook">Delete a single web hook</h2>
+<pre class="highlight shell"><code>curl /web_hooks/:id <span class="se">\</span>
+  --request DELETE <span class="se">\</span>
+  --verbose
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Delete a single web hook</p>
+
+<h3 id="http-method">HTTP Method</h3>
+
+<p><code class="prettyprint">DELETE</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Required</th>
+<th style="text-align: left">Name</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">✓</td>
+<td style="text-align: left">id</td>
+<td style="text-align: left">uuid</td>
+<td style="text-align: left">the <code class="prettyprint">id</code> of the <code class="prettyprint">:id</code></td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
