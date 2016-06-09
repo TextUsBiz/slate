@@ -301,7 +301,7 @@
 <h2 id="create-a-new-account-auto-reply">Create a new account auto reply</h2>
 <pre class="highlight shell"><code>curl /auto_replies <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"auto_reply":{"id":30,"is_active":null,"message":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"id":134,"is_active":null,"message":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -393,7 +393,7 @@
 <h2 id="update-a-single-auto-reply">Update a single auto reply</h2>
 <pre class="highlight shell"><code>curl /auto_replies/:id <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"auto_reply":{"id":30,"is_active":null,"message":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"id":134,"is_active":null,"message":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -563,7 +563,7 @@
 <h2 id="create-and-send-a-broadcast">Create and send a broadcast</h2>
 <pre class="highlight shell"><code>curl /broadcasts <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"broadcast":{"deliver_at":null,"from_template":null,"group":null,"message_body":null,"sender":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"deliver_at":null,"from_template":null,"group":null,"message_body":null,"sender":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -764,7 +764,7 @@
 <h2 id="create-a-new-account-contact">Create a new account contact</h2>
 <pre class="highlight shell"><code>curl /contacts <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"contact":{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":266,"last_name":null,"notes":null,"phone":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":712,"last_name":null,"notes":null,"phone":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -888,7 +888,7 @@
 <h2 id="update-a-single-contact">Update a single contact</h2>
 <pre class="highlight shell"><code>curl /contacts/:id <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"contact":{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":266,"last_name":null,"notes":null,"phone":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":712,"last_name":null,"notes":null,"phone":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1097,7 +1097,7 @@
 <h2 id="create-a-new-account-group">Create a new account group</h2>
 <pre class="highlight shell"><code>curl /groups <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"group":{"name":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"name":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1183,7 +1183,7 @@
 <h2 id="update-a-single-group">Update a single group</h2>
 <pre class="highlight shell"><code>curl /groups/:id <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"group":{"name":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"name":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1402,7 +1402,7 @@
 <h2 id="add-a-contact-to-a-group">Add a contact to a group</h2>
 <pre class="highlight shell"><code>curl /groups/:id/contacts/:contact_id <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"group":{"name":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"name":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1559,7 +1559,7 @@
 <h2 id="create-a-new-message-signature">Create a new message signature</h2>
 <pre class="highlight shell"><code>curl /message_signatures <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"message_signature":{"content":null,"is_active":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"content":null,"is_active":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1651,7 +1651,7 @@
 <h2 id="update-a-single-message-signature">Update a single message signature</h2>
 <pre class="highlight shell"><code>curl /message_signatures/:id <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"message_signature":{"content":null,"is_active":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"content":null,"is_active":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1808,7 +1808,7 @@
 <h2 id="create-a-new-message-template">Create a new message template</h2>
 <pre class="highlight shell"><code>curl /message_templates <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"message_template":{"content":null,"title":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"content":null,"title":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1900,7 +1900,7 @@
 <h2 id="update-a-single-message-template">Update a single message template</h2>
 <pre class="highlight shell"><code>curl /message_templates/:id <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"message_template":{"content":null,"title":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"content":null,"title":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2086,7 +2086,7 @@
 <h2 id="create-and-send-a-message">Create and send a message</h2>
 <pre class="highlight shell"><code>curl /messages <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"message":{"id":917,"read":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"id":236,"read":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2232,7 +2232,7 @@
 <h2 id="update-a-message-39-s-read-status">Update a message&rsquo;s read status</h2>
 <pre class="highlight shell"><code>curl /messages/:id <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"message":{"id":917,"read":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"id":236,"read":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2356,7 +2356,7 @@
 <h2 id="create-a-new-opt-out">Create a new opt out</h2>
 <pre class="highlight shell"><code>curl /opt_outs <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"opt_out":{"country":null,"phone":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"country":null,"phone":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2707,7 +2707,7 @@
 <h2 id="create-a-new-web-hook">Create a new web hook</h2>
 <pre class="highlight shell"><code>curl /web_hooks <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"web_hook":{"url":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"url":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2791,7 +2791,7 @@
 <h2 id="update-a-single-web-hook">Update a single web hook</h2>
 <pre class="highlight shell"><code>curl /web_hooks/:id <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"web_hook":{"url":null}}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"url":null}'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
