@@ -254,6 +254,7 @@
 <h2 id="list-all-auto-replies-for-the-current-account">List all auto replies for the current account</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/auto_replies <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -312,7 +313,8 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/auto_replies <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"id":943,"is_active":null,"message":null}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"is_active":null,"message":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -362,6 +364,7 @@
 <h2 id="retrieve-a-single-auto-reply">Retrieve a single auto reply</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/auto_replies/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -406,7 +409,8 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/auto_replies/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"id":943,"is_active":null,"message":null}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"is_active":null,"message":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -463,6 +467,7 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/auto_replies/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request DELETE <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -508,6 +513,7 @@
 <h2 id="list-all-broadcasts-for-the-current-account">List all broadcasts for the current account</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/broadcasts <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -580,6 +586,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
   --data <span class="s1">'{"deliver_at":null,"from_template":null,"group":null,"message_body":null,"sender":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -654,6 +661,7 @@
 <h2 id="retrieve-a-single-broadcast">Retrieve a single broadcast</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/broadcasts/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -706,6 +714,7 @@
 <h2 id="list-all-contacts-for-the-current-account">List all contacts for the current account</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/contacts <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -783,7 +792,8 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/contacts <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":782,"last_name":null,"notes":null,"phone":null}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"business_name":null,"country":null,"first_name":null,"last_name":null,"phone":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -858,6 +868,7 @@
 <h2 id="retrieve-a-single-contact-by-id">Retrieve a single contact by id</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/contacts/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -909,7 +920,8 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/contacts/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":782,"last_name":null,"notes":null,"phone":null}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"business_name":null,"country":null,"first_name":null,"flagged":null,"last_name":null,"notes":null,"phone":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1001,6 +1013,7 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/contacts/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request DELETE <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1051,6 +1064,7 @@
 <h2 id="list-all-groups-for-the-current-account">List all groups for the current account</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/groups <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1122,6 +1136,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
   --data <span class="s1">'{"name":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1165,6 +1180,7 @@
 <h2 id="retrieve-a-single-group">Retrieve a single group</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/groups/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1210,6 +1226,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request PUT <span class="se">\</span>
   --data <span class="s1">'{"name":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1260,6 +1277,7 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/groups/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request DELETE <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1303,6 +1321,7 @@
 <h2 id="list-broadcasts-for-the-group">List broadcasts for the group</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/groups/:id/broadcasts <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1364,6 +1383,7 @@
 <h2 id="list-contacts-for-the-group">List contacts for the group</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/groups/:id/contacts <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1432,7 +1452,8 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/groups/:id/contacts/:contact_id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"name":null}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"contact_id":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1483,6 +1504,7 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/groups/:id/contacts/:contact_id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request DELETE <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1534,6 +1556,7 @@
 <h2 id="list-all-message-signatures-for-the-current-account">List all message signatures for the current account</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/message_signatures <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1593,6 +1616,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
   --data <span class="s1">'{"content":null,"is_active":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1642,6 +1666,7 @@
 <h2 id="retrieve-a-single-message-signature">Retrieve a single message signature</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/message_signatures/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1687,6 +1712,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request PUT <span class="se">\</span>
   --data <span class="s1">'{"content":null,"is_active":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1743,6 +1769,7 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/message_signatures/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request DELETE <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1788,6 +1815,7 @@
 <h2 id="list-all-message-templates-for-the-current-account">List all message templates for the current account</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/message_templates <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1847,6 +1875,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
   --data <span class="s1">'{"content":null,"title":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1896,6 +1925,7 @@
 <h2 id="retrieve-a-single-message-template">Retrieve a single message template</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/message_templates/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1940,7 +1970,8 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/message_templates/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"content":null,"title":null}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"content":null,"is_active":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -1997,6 +2028,7 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/message_templates/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request DELETE <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2042,6 +2074,7 @@
 <h2 id="list-all-messages-for-the-current-account">List all messages for the current account</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/messages <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2129,7 +2162,8 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/messages <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
-  --data <span class="s1">'{"id":961,"read":null}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"content":null,"deliver_at":null,"receiver":null,"sender":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2202,6 +2236,7 @@
 <h2 id="list-all-messages-to-and-from-the-specified-contact">List all messages to and from the specified contact</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/messages/:contact_id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2277,7 +2312,8 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/messages/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request PUT <span class="se">\</span>
-  --data <span class="s1">'{"id":961,"read":null}'</span> <span class="se">\</span>
+  --data <span class="s1">'{"read":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2340,6 +2376,7 @@
 <h2 id="list-all-opt-outs-for-the-current-organization">List all opt outs for the current organization</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/opt_outs <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2404,6 +2441,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
   --data <span class="s1">'{"country":null,"phone":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2452,6 +2490,7 @@
 <h2 id="retrieve-a-single-opt-out">Retrieve a single opt out</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/opt_outs/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2495,6 +2534,7 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/opt_outs/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request DELETE <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2539,6 +2579,7 @@
 <h2 id="list-all-users-for-the-current-account">List all users for the current account</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/users <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2608,6 +2649,7 @@
 <h2 id="retrieve-the-current-user">Retrieve the current user</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/users/current <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2653,6 +2695,7 @@
 <h2 id="retrieve-a-single-user">Retrieve a single user</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/users/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2704,6 +2747,7 @@
 <h2 id="list-all-web-hooks-accessible-by-the-current-user">List all web hooks accessible by the current user</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/web_hooks <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2762,6 +2806,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request POST <span class="se">\</span>
   --data <span class="s1">'{"url":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2804,6 +2849,7 @@
 <h2 id="retrieve-a-single-web-hook">Retrieve a single web hook</h2>
 <pre class="highlight shell"><code>curl https://app.textus.com/api/web_hooks/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2848,6 +2894,7 @@
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request PUT <span class="se">\</span>
   --data <span class="s1">'{"url":null}'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
@@ -2897,6 +2944,7 @@
 <pre class="highlight shell"><code>curl https://app.textus.com/api/web_hooks/:id <span class="se">\</span>
   --user <span class="o">{</span>username<span class="o">}</span>:<span class="o">{</span>api_key<span class="o">}</span> <span class="se">\</span>
   --request DELETE <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   --verbose
 </code></pre>
 
