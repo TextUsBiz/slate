@@ -46,7 +46,20 @@ html, body {
   width: 20px;
 }
 
+<<<<<<< HEAD
 .toc-wrapper {
+=======
+@mixin embossed-bg {
+  background:
+    linear-gradient(to bottom, rgba(darken(#F4F6F8, 6%), 1), rgba(#000, 0) 8px),
+    linear-gradient(to top, rgba(darken(#F4F6F8, 6%), 1), rgba(#000, 0) 8px),
+    linear-gradient(to bottom, rgba($nav-embossed-border-top, 1), rgba($nav-embossed-border-top, 0) 1.5px),
+    linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px),
+    $nav-subitem-bg;
+}
+
+.tocify-wrapper {
+>>>>>>> b0e00a0... modifies styles; adds textus logos
   transition: left 0.3s ease-in-out;
 
   overflow-y: auto;
@@ -60,6 +73,7 @@ html, body {
   background-color: $nav-bg;
   font-size: 13px;
   font-weight: bold;
+  border-right: 1px solid $nav-footer-border-color;
 
   // language selector for mobile devices
   .lang-selector {
@@ -74,6 +88,7 @@ html, body {
   &>img {
     display: block;
     max-width: 100%;
+    border-bottom: 1px solid $nav-footer-border-color;
   }
 
   &>.search {
@@ -179,7 +194,7 @@ html, body {
   .toc-footer {
     padding: 1em 0;
     margin-top: 1em;
-    border-top: 1px dashed $nav-footer-border-color;
+    border-top: 1px solid $nav-footer-border-color;
 
     li,a {
       color: $nav-text;
@@ -348,6 +363,7 @@ html, body {
 
   h1 {
     @extend %header-font;
+<<<<<<< HEAD
     font-size: 25px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -356,6 +372,14 @@ html, body {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     background-color: #fdfdfd;
+=======
+    font-size: 30px;
+    padding-top: 1em;
+    padding-bottom: 0em;
+    margin-bottom: $h1-margin-bottom;
+    margin-top: 2em;
+    border-top: 1px solid $nav-footer-border-color;
+>>>>>>> b0e00a0... modifies styles; adds textus logos
   }
 
   h1:first-child, div:first-child + h1 {
@@ -368,7 +392,7 @@ html, body {
     font-size: 19px;
     margin-top: 4em;
     margin-bottom: 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid $nav-footer-border-color;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
     background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
@@ -409,7 +433,7 @@ html, body {
 
     th {
       padding: 5px 10px;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $nav-footer-border-color;
       vertical-align: bottom;
     }
 
@@ -418,7 +442,7 @@ html, body {
     }
 
     tr:last-child {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $nav-footer-border-color;
     }
 
     tr:nth-child(odd)>td {
