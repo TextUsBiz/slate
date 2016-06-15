@@ -5,7 +5,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='https://textus.com/signup/'>Sign Up for a Developer Key</a>
 ---
 
 # Overview
@@ -98,7 +98,7 @@ Note: the response headers for these requests include:
 
 For broadcast requests, you can make up to 1 request per minute. For all other requests, you can make up to 1,000 requests per hour.
 
-## Cross Origin Resource Sharing (CORS)
+## CORS
 
 The API currently **does not** support Cross Origin Resource Sharing (CORS) for AJAX requests from any origin.
 
@@ -251,7 +251,7 @@ Retrieve a single auto reply
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `auto_reply` |
 
 
 
@@ -289,7 +289,7 @@ Update a single auto reply
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `auto_reply` |
 |  | is_active |  String | Auto reply status (true or false) |
 |  | message |  String | Auto reply message |
 
@@ -328,7 +328,7 @@ Delete a single auto reply
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `auto_reply` |
 
 
 
@@ -479,7 +479,7 @@ Retrieve a single broadcast
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `broadcast` |
 
 
 
@@ -631,7 +631,7 @@ Retrieve a single contact by id
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `contact` |
 
 
 
@@ -680,7 +680,7 @@ Update a single contact
 |  | country |  String | Two-digit country code for contact phone number |
 |  | first_name |  String | Contact first name |
 |  | flagged |  Virtus::Attribute::Boolean | Contact flagged tag |
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `contact` |
 |  | last_name |  String | Contact last name |
 |  | notes |  String | Contact notes |
 |  | phone |  String | Contact phone number |
@@ -727,7 +727,7 @@ curl https://app.textus.com/api/contacts/:id \
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `contact` |
 
 
 
@@ -854,7 +854,7 @@ Retrieve a single group
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `group` |
 
 
 
@@ -892,7 +892,7 @@ Update a single group
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `group` |
 |  | name |  String | Name of the group |
 
 
@@ -930,7 +930,7 @@ Delete a single group
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `group` |
 
 
 
@@ -970,7 +970,7 @@ List broadcasts for the group
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `broadcasts` |
+| ✓ | id |  uuid | the `id` of the `group` |
 |  | offset |  Integer | Pad a number of results. |
 |  | page |  Integer | Page offset to fetch. |
 |  | per_page |  Integer | Number of results to return per page. |
@@ -1013,7 +1013,7 @@ List contacts for the group
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `contacts` |
+| ✓ | id |  uuid | the `id` of the `group` |
 |  | offset |  Integer | Pad a number of results. |
 |  | order_by |  String | Order Query (orders by attribute) |
 |  | page |  Integer | Page offset to fetch. |
@@ -1060,7 +1060,7 @@ Add a contact to a group
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
 | ✓ | contact_id |  uuid | the `id` of the `contact` |
-| ✓ | id |  uuid | the `id` of the `:contact_id` |
+| ✓ | id |  uuid | the `id` of the `group` |
 
 
 
@@ -1098,7 +1098,7 @@ Remove a contact from a group
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
 | ✓ | contact_id |  uuid | the `id` of the `contact` |
-| ✓ | id |  uuid | the `id` of the `:contact_id` |
+| ✓ | id |  uuid | the `id` of the `group` |
 
 
 
@@ -1224,7 +1224,7 @@ Retrieve a single message signature
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `message_signature` |
 
 
 
@@ -1263,7 +1263,7 @@ Update a single message signature
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
 |  | content |  String | Message signature content |
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `message_signature` |
 |  | is_active |  String | Message signature activation status (true or false) |
 
 
@@ -1301,7 +1301,7 @@ Delete a single message signature
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `message_signature` |
 
 
 
@@ -1427,7 +1427,7 @@ Retrieve a single message template
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `message_template` |
 
 
 
@@ -1466,7 +1466,7 @@ Update a single message template
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
 |  | content |  String | Message template content |
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `message_template` |
 |  | is_active |  String | Message template activation status (true or false) |
 
 
@@ -1504,7 +1504,7 @@ Delete a single message template
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `message_template` |
 
 
 
@@ -1730,7 +1730,7 @@ Update a message's read status
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `message` |
 | ✓ | read |  Virtus::Attribute::Boolean | Message read status (true or false) |
 
 
@@ -1855,7 +1855,7 @@ Retrieve a single opt out
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `opt_out` |
 
 
 
@@ -1901,7 +1901,7 @@ Delete a single opt out
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `opt_out` |
 
 
 
@@ -2055,7 +2055,7 @@ Retrieve a single user
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `user` |
 
 
 
@@ -2177,7 +2177,7 @@ Retrieve a single web hook
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `web_hook` |
 
 
 
@@ -2223,7 +2223,7 @@ Update a single web hook
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `web_hook` |
 |  | url |  String | Web hook URL (must be a valid URL) |
 
 
@@ -2260,7 +2260,7 @@ Delete a single web hook
 
 | Required | Name | Type | Description |
 |:--------:|:-----|:-----|:------------|
-| ✓ | id |  uuid | the `id` of the `:id` |
+| ✓ | id |  uuid | the `id` of the `web_hook` |
 
 
 
