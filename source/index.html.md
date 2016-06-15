@@ -128,7 +128,7 @@ Below is a static list of all of the accessible TextUs resources with an example
 ## List all auto replies for the current account
 
 ```shell
-curl /auto_replies
+curl https://app.textus.com/api/auto_replies
   --verbose
 ```
 
@@ -166,9 +166,9 @@ List all auto replies for the current account
 ## Create a new account auto reply
 
 ```shell
-curl /auto_replies \
+curl https://app.textus.com/api/auto_replies \
   --request POST \
-  --data '{"id":134,"is_active":null,"message":null}' \
+  --data '{"id":988,"is_active":null,"message":null}' \
   --verbose
 ```
 
@@ -207,7 +207,7 @@ Create a new account auto reply
 ## Retrieve a single auto reply
 
 ```shell
-curl /auto_replies/:id
+curl https://app.textus.com/api/auto_replies/:id
   --verbose
 ```
 
@@ -241,9 +241,9 @@ Retrieve a single auto reply
 ## Update a single auto reply
 
 ```shell
-curl /auto_replies/:id \
+curl https://app.textus.com/api/auto_replies/:id \
   --request PUT \
-  --data '{"id":134,"is_active":null,"message":null}' \
+  --data '{"id":988,"is_active":null,"message":null}' \
   --verbose
 ```
 
@@ -279,7 +279,7 @@ Update a single auto reply
 ## Delete a single auto reply
 
 ```shell
-curl /auto_replies/:id \
+curl https://app.textus.com/api/auto_replies/:id \
   --request DELETE \
   --verbose
 ```
@@ -321,7 +321,7 @@ Delete a single auto reply
 ## List all broadcasts for the current account
 
 ```shell
-curl /broadcasts
+curl https://app.textus.com/api/broadcasts
   --verbose
 ```
 
@@ -367,7 +367,7 @@ List all broadcasts for the current account
 ## Create and send a broadcast
 
 ```shell
-curl /broadcasts \
+curl https://app.textus.com/api/broadcasts \
   --request POST \
   --data '{"deliver_at":null,"from_template":null,"group":null,"message_body":null,"sender":null}' \
   --verbose
@@ -418,7 +418,7 @@ Create and send a broadcast
 ## Retrieve a single broadcast
 
 ```shell
-curl /broadcasts/:id
+curl https://app.textus.com/api/broadcasts/:id
   --verbose
 ```
 
@@ -466,7 +466,7 @@ Retrieve a single broadcast
 ## List all contacts for the current account
 
 ```shell
-curl /contacts
+curl https://app.textus.com/api/contacts
   --verbose
 ```
 
@@ -513,9 +513,9 @@ List all contacts for the current account
 ## Create a new account contact
 
 ```shell
-curl /contacts \
+curl https://app.textus.com/api/contacts \
   --request POST \
-  --data '{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":712,"last_name":null,"notes":null,"phone":null}' \
+  --data '{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":758,"last_name":null,"notes":null,"phone":null}' \
   --verbose
 ```
 
@@ -564,7 +564,7 @@ Create a new account contact
 ## Retrieve a single contact by id
 
 ```shell
-curl /contacts/:id
+curl https://app.textus.com/api/contacts/:id
   --verbose
 ```
 
@@ -605,9 +605,9 @@ Retrieve a single contact by id
 ## Update a single contact
 
 ```shell
-curl /contacts/:id \
+curl https://app.textus.com/api/contacts/:id \
   --request PUT \
-  --data '{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":712,"last_name":null,"notes":null,"phone":null}' \
+  --data '{"business_name":null,"country":null,"first_name":null,"flagged":null,"id":758,"last_name":null,"notes":null,"phone":null}' \
   --verbose
 ```
 
@@ -655,7 +655,7 @@ Update a single contact
 ##
 
 ```shell
-curl /contacts/:id \
+curl https://app.textus.com/api/contacts/:id \
   --request DELETE \
   --verbose
 ```
@@ -704,7 +704,7 @@ curl /contacts/:id \
 ## List all groups for the current account
 
 ```shell
-curl /groups
+curl https://app.textus.com/api/groups
   --verbose
 ```
 
@@ -744,7 +744,7 @@ List all groups for the current account
 ## Create a new account group
 
 ```shell
-curl /groups \
+curl https://app.textus.com/api/groups \
   --request POST \
   --data '{"name":null}' \
   --verbose
@@ -784,7 +784,7 @@ Create a new account group
 ## Retrieve a single group
 
 ```shell
-curl /groups/:id
+curl https://app.textus.com/api/groups/:id
   --verbose
 ```
 
@@ -818,7 +818,7 @@ Retrieve a single group
 ## Update a single group
 
 ```shell
-curl /groups/:id \
+curl https://app.textus.com/api/groups/:id \
   --request PUT \
   --data '{"name":null}' \
   --verbose
@@ -855,7 +855,7 @@ Update a single group
 ## Delete a single group
 
 ```shell
-curl /groups/:id \
+curl https://app.textus.com/api/groups/:id \
   --request DELETE \
   --verbose
 ```
@@ -894,7 +894,7 @@ Delete a single group
 ## List broadcasts for the group
 
 ```shell
-curl /groups/:id/broadcasts
+curl https://app.textus.com/api/groups/:id/broadcasts
   --verbose
 ```
 
@@ -935,7 +935,7 @@ List broadcasts for the group
 ## List contacts for the group
 
 ```shell
-curl /groups/:id/contacts
+curl https://app.textus.com/api/groups/:id/contacts
   --verbose
 ```
 
@@ -977,7 +977,7 @@ List contacts for the group
 ## Add a contact to a group
 
 ```shell
-curl /groups/:id/contacts/:contact_id \
+curl https://app.textus.com/api/groups/:id/contacts/:contact_id \
   --request PUT \
   --data '{"name":null}' \
   --verbose
@@ -1014,7 +1014,7 @@ Add a contact to a group
 ## Remove a contact from a group
 
 ```shell
-curl /groups/:id/contacts/:contact_id \
+curl https://app.textus.com/api/groups/:id/contacts/:contact_id \
   --request DELETE \
   --verbose
 ```
@@ -1057,7 +1057,7 @@ Remove a contact from a group
 ## List all message signatures for the current account
 
 ```shell
-curl /message_signatures
+curl https://app.textus.com/api/message_signatures
   --verbose
 ```
 
@@ -1095,7 +1095,7 @@ List all message signatures for the current account
 ## Create a new message signature
 
 ```shell
-curl /message_signatures \
+curl https://app.textus.com/api/message_signatures \
   --request POST \
   --data '{"content":null,"is_active":null}' \
   --verbose
@@ -1136,7 +1136,7 @@ Create a new message signature
 ## Retrieve a single message signature
 
 ```shell
-curl /message_signatures/:id
+curl https://app.textus.com/api/message_signatures/:id
   --verbose
 ```
 
@@ -1170,7 +1170,7 @@ Retrieve a single message signature
 ## Update a single message signature
 
 ```shell
-curl /message_signatures/:id \
+curl https://app.textus.com/api/message_signatures/:id \
   --request PUT \
   --data '{"content":null,"is_active":null}' \
   --verbose
@@ -1208,7 +1208,7 @@ Update a single message signature
 ## Delete a single message signature
 
 ```shell
-curl /message_signatures/:id \
+curl https://app.textus.com/api/message_signatures/:id \
   --request DELETE \
   --verbose
 ```
@@ -1250,7 +1250,7 @@ Delete a single message signature
 ## List all message templates for the current account
 
 ```shell
-curl /message_templates
+curl https://app.textus.com/api/message_templates
   --verbose
 ```
 
@@ -1288,7 +1288,7 @@ List all message templates for the current account
 ## Create a new message template
 
 ```shell
-curl /message_templates \
+curl https://app.textus.com/api/message_templates \
   --request POST \
   --data '{"content":null,"title":null}' \
   --verbose
@@ -1329,7 +1329,7 @@ Create a new message template
 ## Retrieve a single message template
 
 ```shell
-curl /message_templates/:id
+curl https://app.textus.com/api/message_templates/:id
   --verbose
 ```
 
@@ -1363,7 +1363,7 @@ Retrieve a single message template
 ## Update a single message template
 
 ```shell
-curl /message_templates/:id \
+curl https://app.textus.com/api/message_templates/:id \
   --request PUT \
   --data '{"content":null,"title":null}' \
   --verbose
@@ -1401,7 +1401,7 @@ Update a single message template
 ## Delete a single message template
 
 ```shell
-curl /message_templates/:id \
+curl https://app.textus.com/api/message_templates/:id \
   --request DELETE \
   --verbose
 ```
@@ -1443,7 +1443,7 @@ Delete a single message template
 ## List all messages for the current account
 
 ```shell
-curl /messages
+curl https://app.textus.com/api/messages
   --verbose
 ```
 
@@ -1495,9 +1495,9 @@ List all messages for the current account
 ## Create and send a message
 
 ```shell
-curl /messages \
+curl https://app.textus.com/api/messages \
   --request POST \
-  --data '{"id":236,"read":null}' \
+  --data '{"id":706,"read":null}' \
   --verbose
 ```
 
@@ -1553,7 +1553,7 @@ Create and send a message
 ## List all messages to and from the specified contact
 
 ```shell
-curl /messages/:contact_id
+curl https://app.textus.com/api/messages/:contact_id
   --verbose
 ```
 
@@ -1607,9 +1607,9 @@ List all messages to and from the specified contact
 ## Update a message's read status
 
 ```shell
-curl /messages/:id \
+curl https://app.textus.com/api/messages/:id \
   --request PUT \
-  --data '{"id":236,"read":null}' \
+  --data '{"id":706,"read":null}' \
   --verbose
 ```
 
@@ -1662,7 +1662,7 @@ Update a message's read status
 ## List all opt outs for the current organization
 
 ```shell
-curl /opt_outs
+curl https://app.textus.com/api/opt_outs
   --verbose
 ```
 
@@ -1700,7 +1700,7 @@ List all opt outs for the current organization
 ## Create a new opt out
 
 ```shell
-curl /opt_outs \
+curl https://app.textus.com/api/opt_outs \
   --request POST \
   --data '{"country":null,"phone":null}' \
   --verbose
@@ -1740,7 +1740,7 @@ Create a new opt out
 ## Retrieve a single opt out
 
 ```shell
-curl /opt_outs/:id
+curl https://app.textus.com/api/opt_outs/:id
   --verbose
 ```
 
@@ -1773,7 +1773,7 @@ Retrieve a single opt out
 ## Delete a single opt out
 
 ```shell
-curl /opt_outs/:id \
+curl https://app.textus.com/api/opt_outs/:id \
   --request DELETE \
   --verbose
 ```
@@ -1824,7 +1824,7 @@ Delete a single opt out
 ## List all users for the current account
 
 ```shell
-curl /users
+curl https://app.textus.com/api/users
   --verbose
 ```
 
@@ -1871,7 +1871,7 @@ List all users for the current account
 ## Retrieve the current user
 
 ```shell
-curl /users/current
+curl https://app.textus.com/api/users/current
   --verbose
 ```
 
@@ -1925,7 +1925,7 @@ Retrieve the current user
 ## Retrieve a single user
 
 ```shell
-curl /users/:id
+curl https://app.textus.com/api/users/:id
   --verbose
 ```
 
@@ -1972,7 +1972,7 @@ Retrieve a single user
 ## List all web hooks accessible by the current user
 
 ```shell
-curl /web_hooks
+curl https://app.textus.com/api/web_hooks
   --verbose
 ```
 
@@ -2009,7 +2009,7 @@ List all web hooks accessible by the current user
 ## Create a new web hook
 
 ```shell
-curl /web_hooks \
+curl https://app.textus.com/api/web_hooks \
   --request POST \
   --data '{"url":null}' \
   --verbose
@@ -2048,7 +2048,7 @@ Create a new web hook
 ## Retrieve a single web hook
 
 ```shell
-curl /web_hooks/:id
+curl https://app.textus.com/api/web_hooks/:id
   --verbose
 ```
 
@@ -2081,7 +2081,7 @@ Retrieve a single web hook
 ## Update a single web hook
 
 ```shell
-curl /web_hooks/:id \
+curl https://app.textus.com/api/web_hooks/:id \
   --request PUT \
   --data '{"url":null}' \
   --verbose
@@ -2126,7 +2126,7 @@ Update a single web hook
 ## Delete a single web hook
 
 ```shell
-curl /web_hooks/:id \
+curl https://app.textus.com/api/web_hooks/:id \
   --request DELETE \
   --verbose
 ```
