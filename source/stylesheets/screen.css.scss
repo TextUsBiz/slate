@@ -46,9 +46,6 @@ html, body {
   width: 20px;
 }
 
-<<<<<<< HEAD
-.toc-wrapper {
-=======
 @mixin embossed-bg {
   background:
     linear-gradient(to bottom, rgba(darken(#F4F6F8, 6%), 1), rgba(#000, 0) 8px),
@@ -59,7 +56,6 @@ html, body {
 }
 
 .tocify-wrapper {
->>>>>>> b0e00a0... modifies styles; adds textus logos
   transition: left 0.3s ease-in-out;
 
   overflow-y: auto;
@@ -363,23 +359,12 @@ html, body {
 
   h1 {
     @extend %header-font;
-<<<<<<< HEAD
-    font-size: 25px;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    margin-bottom: $h1-margin-bottom;
-    margin-top: 2em;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    background-color: #fdfdfd;
-=======
     font-size: 30px;
     padding-top: 1em;
     padding-bottom: 0em;
     margin-bottom: $h1-margin-bottom;
     margin-top: 2em;
     border-top: 1px solid $nav-footer-border-color;
->>>>>>> b0e00a0... modifies styles; adds textus logos
   }
 
   h1:first-child, div:first-child + h1 {
