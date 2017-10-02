@@ -125,7 +125,17 @@ AJAX requests from any origin.
 
 ## Webhooks
 
-> The JSON payload is structured like this:
+Webhooks allow you to build or set up integrations which subscribe to messaging
+events on TextUs. When a message is sent or received, we'll send a HTTP POST
+payload to the webhook's configured URL. Webhooks can be used to log messages
+for a contact in an external CRM or ATS or any other creative use.
+
+Whenever a message is sent to or from a TextUs account we can POST that message
+to your provided webhook URLs.
+
+### Version 1 Webhook Payload
+
+*Version 1 is deprecated. Please use V2 for new integration development*
 
 ```json
 {
@@ -144,10 +154,68 @@ AJAX requests from any origin.
 }
 ```
 
-Webhooks allow you to build or set up integrations which subscribe to messaging
-events on TextUs. When a message is sent or received, we'll send a HTTP POST
-payload to the webhook's configured URL. Webhooks can be used to log messages
-for a contact in an external CRM or ATS or any other creative use.
+### V2 Webhook Payload
+
+```json
+{
+  "timestamp":1500000000,
+  "web_hook":{
+    "id":1,
+    "url":"http://httpbin.org/post",
+    "account_id":1,
+    "version":"2",
+    "created_at":"2017-07-14T19:38:44.231Z",
+    "updated_at":"2017-07-14T19:38:44.231Z"
+  },
+  "message":{
+    "content":"Hello, Bart.",
+    "read":false,
+    "broadcast_id":null,
+    "status":"created",
+    "deliver_at":"2017-07-18T21:01:11.596Z",
+    "from_autoresponse":null,
+    "id":6,
+    "created_at":"2017-07-18T21:01:11.596Z",
+    "updated_at":"2017-07-18T21:01:11.596Z",
+    "sender_id":6,
+    "receiver_id":6,
+    "sender_type":"User",
+    "receiver_type":"Contact",
+    "sender_phone":"+12230000028",
+    "sender_name":"Sideshow Bob",
+    "receiver_phone":"+12230000030",
+    "receiver_name":"Bart Simpson",
+    "image_url":null,
+    "thumb_url":null
+  }
+}
+```
+
+#### Signature Verification (Optional)
+
+Once you have a URL configured to accept inbound webhook messages, what's to
+prevent someone else from posing as TextUs and sending messages to your
+webhook?
+
+Our V2 webhook implementation adds request signing so you can verify the
+authenticity of inbound webhook requests.
+
+This verification is completely optional on your part. The signature will be
+contained in an `X-TextUs-Signature` header. To verify the signature, you
+would:
+
+1. Parse the request body to retrieve the top-level `timestamp` field.
+2. Extract the signature from the header.
+3. Prepare the signed payload. This is achieved by combining the timestamp, a
+   `.` character, and the request body.
+4. Determine the expected signature value. Compute a HMAC with the SHA256 hash
+   function, using your webhook's signing secret as the key and the signed
+   payload string as the message.
+5. Compare your computed signature with the value included in the
+   `X-TextUs-Signature` field. If they match then you can be sure the request
+   is authentic. In other words,
+   `OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), secret_key, timestamp +
+   '.' + request_body) == X-TextUs-Signature`
 
 
 ## Testing the API
@@ -180,8 +248,8 @@ curl https://app.textus.com/api/auto_replies \
     "message": "Reply 1",
     "is_active": false,
     "id": 42,
-    "created_at": "2017-08-30T21:37:56Z",
-    "updated_at": "2017-09-26T10:21:04Z"
+    "created_at": "2017-09-30T00:26:34Z",
+    "updated_at": "2017-09-30T13:42:39Z"
   }
 ]
 ```
@@ -219,8 +287,8 @@ curl https://app.textus.com/api/auto_replies \
   "message": "Reply 2",
   "is_active": false,
   "id": 42,
-  "created_at": "2017-09-15T18:47:36Z",
-  "updated_at": "2017-09-26T11:22:11Z"
+  "created_at": "2017-09-23T10:08:40Z",
+  "updated_at": "2017-09-30T06:50:52Z"
 }
 ```
 
@@ -254,8 +322,8 @@ curl https://app.textus.com/api/auto_replies/:id \
   "message": "Reply 3",
   "is_active": false,
   "id": 42,
-  "created_at": "2017-09-16T03:51:00Z",
-  "updated_at": "2017-09-26T21:34:31Z"
+  "created_at": "2017-09-04T00:00:14Z",
+  "updated_at": "2017-10-01T19:54:22Z"
 }
 ```
 
@@ -288,8 +356,8 @@ curl https://app.textus.com/api/auto_replies/:id \
   "message": "Reply 4",
   "is_active": false,
   "id": 42,
-  "created_at": "2017-09-03T01:22:08Z",
-  "updated_at": "2017-09-26T17:40:03Z"
+  "created_at": "2017-09-21T05:21:54Z",
+  "updated_at": "2017-09-30T23:06:09Z"
 }
 ```
 
@@ -324,8 +392,8 @@ curl https://app.textus.com/api/auto_replies/:id \
   "message": "Reply 5",
   "is_active": false,
   "id": 42,
-  "created_at": "2017-09-10T02:27:37Z",
-  "updated_at": "2017-09-26T23:58:44Z"
+  "created_at": "2017-09-23T21:22:08Z",
+  "updated_at": "2017-10-02T01:48:02Z"
 }
 ```
 
@@ -360,8 +428,8 @@ curl https://app.textus.com/api/blocked_numbers \
   {
     "organization_id": 6,
     "id": 42,
-    "created_at": "2017-09-04T17:05:48Z",
-    "updated_at": "2017-09-26T17:38:25Z",
+    "created_at": "2017-09-16T05:20:17Z",
+    "updated_at": "2017-09-30T23:43:32Z",
     "phone": "12230000006"
   }
 ]
@@ -399,8 +467,8 @@ curl https://app.textus.com/api/blocked_numbers \
 {
   "organization_id": 7,
   "id": 42,
-  "created_at": "2017-09-02T23:59:34Z",
-  "updated_at": "2017-09-26T20:53:51Z",
+  "created_at": "2017-09-04T16:10:34Z",
+  "updated_at": "2017-10-01T15:32:43Z",
   "phone": "12230000007"
 }
 ```
@@ -434,8 +502,8 @@ curl https://app.textus.com/api/blocked_numbers/:id \
 {
   "organization_id": 8,
   "id": 42,
-  "created_at": "2017-09-13T11:28:43Z",
-  "updated_at": "2017-09-26T14:19:22Z",
+  "created_at": "2017-09-15T22:30:11Z",
+  "updated_at": "2017-09-30T15:09:36Z",
   "phone": "12230000008"
 }
 ```
@@ -473,10 +541,10 @@ curl https://app.textus.com/api/broadcasts \
     "group_id": 1,
     "message_body": "Test Broadcast",
     "status": null,
-    "deliver_at": "2018-09-29 00:22:30 UTC",
+    "deliver_at": "2017-10-02 21:56:22 UTC",
     "id": 42,
-    "created_at": "2017-09-20T22:05:19Z",
-    "updated_at": "2017-09-27T23:21:31Z",
+    "created_at": "2017-09-08T21:13:28Z",
+    "updated_at": "2017-10-01T11:55:34Z",
     "group_name": "group 1",
     "total_messages": 0
   }
@@ -518,10 +586,10 @@ curl https://app.textus.com/api/broadcasts \
   "group_id": 2,
   "message_body": "Test Broadcast",
   "status": null,
-  "deliver_at": "2018-09-29 00:22:30 UTC",
+  "deliver_at": "2017-10-02 21:56:22 UTC",
   "id": 42,
-  "created_at": "2017-09-10T09:26:48Z",
-  "updated_at": "2017-09-26T11:40:40Z",
+  "created_at": "2017-09-26T15:40:49Z",
+  "updated_at": "2017-10-01T08:01:10Z",
   "group_name": "group 2",
   "total_messages": 0
 }
@@ -560,10 +628,10 @@ curl https://app.textus.com/api/broadcasts/:id \
   "group_id": 3,
   "message_body": "Test Broadcast",
   "status": null,
-  "deliver_at": "2018-09-29 00:22:30 UTC",
+  "deliver_at": "2017-10-02 21:56:22 UTC",
   "id": 42,
-  "created_at": "2017-09-17T22:04:43Z",
-  "updated_at": "2017-09-27T05:00:07Z",
+  "created_at": "2017-09-18T18:48:15Z",
+  "updated_at": "2017-10-01T13:10:54Z",
   "group_name": "group 3",
   "total_messages": 0
 }
@@ -597,10 +665,10 @@ curl https://app.textus.com/api/broadcasts/:id \
   "group_id": 4,
   "message_body": "Test Broadcast",
   "status": null,
-  "deliver_at": "2018-09-29 00:22:30 UTC",
+  "deliver_at": "2017-10-02 21:56:22 UTC",
   "id": 42,
-  "created_at": "2017-09-01T10:49:25Z",
-  "updated_at": "2017-09-28T05:13:40Z",
+  "created_at": "2017-09-16T11:46:36Z",
+  "updated_at": "2017-10-01T14:39:38Z",
   "group_name": "group 4",
   "total_messages": 0
 }
@@ -645,8 +713,8 @@ curl https://app.textus.com/api/contacts \
     "country": "US",
     "line_type": null,
     "id": 42,
-    "created_at": "2017-09-09T13:26:04Z",
-    "updated_at": "2017-09-26T19:40:29Z",
+    "created_at": "2017-09-08T17:03:17Z",
+    "updated_at": "2017-10-01T07:25:15Z",
     "opted_out": false,
     "tags": [
 
@@ -697,8 +765,8 @@ curl https://app.textus.com/api/contacts \
   "country": "US",
   "line_type": null,
   "id": 42,
-  "created_at": "2017-09-12T18:59:32Z",
-  "updated_at": "2017-09-26T22:57:34Z",
+  "created_at": "2017-09-20T14:45:23Z",
+  "updated_at": "2017-09-30T22:39:39Z",
   "opted_out": false,
   "tags": [
 
@@ -746,8 +814,8 @@ curl https://app.textus.com/api/contacts/:id \
   "country": "US",
   "line_type": null,
   "id": 42,
-  "created_at": "2017-09-19T09:27:39Z",
-  "updated_at": "2017-09-27T19:16:07Z",
+  "created_at": "2017-09-28T11:00:58Z",
+  "updated_at": "2017-09-30T08:36:03Z",
   "opted_out": false,
   "tags": [
 
@@ -790,8 +858,8 @@ curl https://app.textus.com/api/contacts/:id \
   "country": "US",
   "line_type": null,
   "id": 42,
-  "created_at": "2017-09-01T06:18:41Z",
-  "updated_at": "2017-09-26T11:57:30Z",
+  "created_at": "2017-09-22T20:21:15Z",
+  "updated_at": "2017-10-02T01:33:36Z",
   "opted_out": false,
   "tags": [
 
@@ -842,8 +910,8 @@ curl https://app.textus.com/api/contacts/:id \
   "country": "US",
   "line_type": null,
   "id": 42,
-  "created_at": "2017-09-07T19:58:18Z",
-  "updated_at": "2017-09-28T02:17:45Z",
+  "created_at": "2017-09-21T21:23:54Z",
+  "updated_at": "2017-09-30T21:45:18Z",
   "opted_out": false,
   "tags": [
 
@@ -884,8 +952,8 @@ curl https://app.textus.com/api/groups \
     "account_id": 19,
     "locked": false,
     "id": 42,
-    "created_at": "2017-09-25T02:42:37Z",
-    "updated_at": "2017-09-27T02:33:07Z",
+    "created_at": "2017-09-09T11:50:14Z",
+    "updated_at": "2017-09-30T15:45:16Z",
     "size": 0
   }
 ]
@@ -926,8 +994,8 @@ curl https://app.textus.com/api/groups \
   "account_id": 20,
   "locked": false,
   "id": 42,
-  "created_at": "2017-09-10T01:01:43Z",
-  "updated_at": "2017-09-26T20:13:46Z",
+  "created_at": "2017-09-30T18:08:23Z",
+  "updated_at": "2017-10-01T21:00:50Z",
   "size": 0
 }
 ```
@@ -961,8 +1029,8 @@ curl https://app.textus.com/api/groups/:id \
   "account_id": 21,
   "locked": false,
   "id": 42,
-  "created_at": "2017-09-11T04:43:38Z",
-  "updated_at": "2017-09-26T10:18:11Z",
+  "created_at": "2017-09-25T09:26:28Z",
+  "updated_at": "2017-10-01T22:59:45Z",
   "size": 0
 }
 ```
@@ -996,8 +1064,8 @@ curl https://app.textus.com/api/groups/:id \
   "account_id": 22,
   "locked": false,
   "id": 42,
-  "created_at": "2017-09-08T02:30:26Z",
-  "updated_at": "2017-09-26T09:40:10Z",
+  "created_at": "2017-09-24T20:27:39Z",
+  "updated_at": "2017-10-01T05:07:36Z",
   "size": 0
 }
 ```
@@ -1032,8 +1100,8 @@ curl https://app.textus.com/api/groups/:id \
   "account_id": 23,
   "locked": false,
   "id": 42,
-  "created_at": "2017-09-01T11:24:27Z",
-  "updated_at": "2017-09-27T13:07:00Z",
+  "created_at": "2017-09-30T15:48:20Z",
+  "updated_at": "2017-09-30T20:55:45Z",
   "size": 0
 }
 ```
@@ -1067,8 +1135,8 @@ curl https://app.textus.com/api/groups/:id/broadcasts \
   "account_id": 24,
   "locked": false,
   "id": 42,
-  "created_at": "2017-09-20T01:16:35Z",
-  "updated_at": "2017-09-28T02:01:48Z",
+  "created_at": "2017-09-26T09:10:15Z",
+  "updated_at": "2017-10-01T12:26:48Z",
   "size": 0
 }
 ```
@@ -1104,8 +1172,8 @@ curl https://app.textus.com/api/groups/:id/contacts \
   "account_id": 25,
   "locked": false,
   "id": 42,
-  "created_at": "2017-09-03T15:01:37Z",
-  "updated_at": "2017-09-27T18:25:15Z",
+  "created_at": "2017-09-29T04:14:27Z",
+  "updated_at": "2017-09-30T13:22:08Z",
   "size": 0
 }
 ```
@@ -1144,8 +1212,8 @@ curl https://app.textus.com/api/groups/:id/contacts/:contact_id \
   "account_id": 26,
   "locked": false,
   "id": 42,
-  "created_at": "2017-09-06T12:37:51Z",
-  "updated_at": "2017-09-27T18:32:00Z",
+  "created_at": "2017-09-03T13:16:56Z",
+  "updated_at": "2017-09-30T07:33:33Z",
   "size": 0
 }
 ```
@@ -1178,8 +1246,8 @@ curl https://app.textus.com/api/groups/:id/contacts/:contact_id \
   "account_id": 27,
   "locked": false,
   "id": 42,
-  "created_at": "2017-09-04T08:54:54Z",
-  "updated_at": "2017-09-28T04:37:18Z",
+  "created_at": "2017-09-24T14:02:50Z",
+  "updated_at": "2017-09-30T08:43:36Z",
   "size": 0
 }
 ```
@@ -1217,8 +1285,8 @@ curl https://app.textus.com/api/message_signatures \
     "content": "signature 1",
     "is_active": null,
     "id": 42,
-    "created_at": "2017-09-02T02:02:52Z",
-    "updated_at": "2017-09-28T04:47:56Z"
+    "created_at": "2017-09-11T23:30:44Z",
+    "updated_at": "2017-10-01T10:08:58Z"
   }
 ]
 ```
@@ -1256,8 +1324,8 @@ curl https://app.textus.com/api/message_signatures \
   "content": "signature 2",
   "is_active": null,
   "id": 42,
-  "created_at": "2017-09-09T13:33:22Z",
-  "updated_at": "2017-09-27T11:03:29Z"
+  "created_at": "2017-09-13T01:30:37Z",
+  "updated_at": "2017-09-30T07:07:46Z"
 }
 ```
 
@@ -1291,8 +1359,8 @@ curl https://app.textus.com/api/message_signatures/:id \
   "content": "signature 3",
   "is_active": null,
   "id": 42,
-  "created_at": "2017-09-13T22:04:06Z",
-  "updated_at": "2017-09-26T08:15:58Z"
+  "created_at": "2017-09-28T15:11:07Z",
+  "updated_at": "2017-09-30T13:30:02Z"
 }
 ```
 
@@ -1325,8 +1393,8 @@ curl https://app.textus.com/api/message_signatures/:id \
   "content": "signature 4",
   "is_active": null,
   "id": 42,
-  "created_at": "2017-09-13T04:51:56Z",
-  "updated_at": "2017-09-27T15:19:13Z"
+  "created_at": "2017-09-09T07:34:27Z",
+  "updated_at": "2017-10-01T17:24:22Z"
 }
 ```
 
@@ -1361,8 +1429,8 @@ curl https://app.textus.com/api/message_signatures/:id \
   "content": "signature 5",
   "is_active": null,
   "id": 42,
-  "created_at": "2017-09-02T17:25:52Z",
-  "updated_at": "2017-09-27T22:19:57Z"
+  "created_at": "2017-09-20T01:43:26Z",
+  "updated_at": "2017-09-30T14:35:44Z"
 }
 ```
 
@@ -1400,8 +1468,8 @@ curl https://app.textus.com/api/message_templates \
     "owner_id": 33,
     "owner_type": "Account",
     "id": 42,
-    "created_at": "2017-08-30T10:11:09Z",
-    "updated_at": "2017-09-27T10:06:19Z",
+    "created_at": "2017-09-25T23:10:06Z",
+    "updated_at": "2017-10-01T09:21:39Z",
     "account_id": 42
   }
 ]
@@ -1442,8 +1510,8 @@ curl https://app.textus.com/api/message_templates \
   "owner_id": 34,
   "owner_type": "Account",
   "id": 42,
-  "created_at": "2017-09-07T19:12:55Z",
-  "updated_at": "2017-09-26T22:34:30Z",
+  "created_at": "2017-09-26T00:31:00Z",
+  "updated_at": "2017-09-30T13:06:54Z",
   "account_id": 42
 }
 ```
@@ -1480,8 +1548,8 @@ curl https://app.textus.com/api/message_templates/:id \
   "owner_id": 35,
   "owner_type": "Account",
   "id": 42,
-  "created_at": "2017-09-09T00:42:24Z",
-  "updated_at": "2017-09-27T05:44:25Z",
+  "created_at": "2017-09-25T00:34:45Z",
+  "updated_at": "2017-09-30T10:17:15Z",
   "account_id": 42
 }
 ```
@@ -1516,8 +1584,8 @@ curl https://app.textus.com/api/message_templates/:id \
   "owner_id": 36,
   "owner_type": "Account",
   "id": 42,
-  "created_at": "2017-09-27T08:03:51Z",
-  "updated_at": "2017-09-28T04:45:31Z",
+  "created_at": "2017-09-06T09:16:00Z",
+  "updated_at": "2017-10-01T19:49:46Z",
   "account_id": 42
 }
 ```
@@ -1556,8 +1624,8 @@ curl https://app.textus.com/api/message_templates/:id \
   "owner_id": 37,
   "owner_type": "Account",
   "id": 42,
-  "created_at": "2017-09-07T01:43:01Z",
-  "updated_at": "2017-09-27T08:07:12Z",
+  "created_at": "2017-09-17T02:55:59Z",
+  "updated_at": "2017-09-30T21:01:31Z",
   "account_id": 42
 }
 ```
@@ -1598,8 +1666,8 @@ curl https://app.textus.com/api/messages \
     "deliver_at": null,
     "from_autoresponse": null,
     "id": 42,
-    "created_at": "2017-09-07T20:45:23Z",
-    "updated_at": "2017-09-26T19:52:14Z",
+    "created_at": "2017-09-20T21:15:59Z",
+    "updated_at": "2017-09-30T18:47:44Z",
     "sender_id": 5,
     "receiver_id": 1,
     "sender_type": "User",
@@ -1653,8 +1721,8 @@ curl https://app.textus.com/api/messages \
   "deliver_at": null,
   "from_autoresponse": null,
   "id": 42,
-  "created_at": "2017-09-19T22:46:12Z",
-  "updated_at": "2017-09-26T15:09:19Z",
+  "created_at": "2017-09-17T03:13:49Z",
+  "updated_at": "2017-09-30T20:33:23Z",
   "sender_id": 6,
   "receiver_id": 2,
   "sender_type": "User",
@@ -1709,8 +1777,8 @@ curl https://app.textus.com/api/messages/:contact_id \
     "deliver_at": null,
     "from_autoresponse": null,
     "id": 42,
-    "created_at": "2017-09-13T19:18:58Z",
-    "updated_at": "2017-09-27T19:40:32Z",
+    "created_at": "2017-09-30T02:01:23Z",
+    "updated_at": "2017-09-30T14:46:24Z",
     "sender_id": 7,
     "receiver_id": 3,
     "sender_type": "User",
@@ -1761,8 +1829,8 @@ curl https://app.textus.com/api/messages/:id \
   "deliver_at": null,
   "from_autoresponse": null,
   "id": 42,
-  "created_at": "2017-09-07T10:29:51Z",
-  "updated_at": "2017-09-27T00:52:13Z",
+  "created_at": "2017-09-22T03:30:33Z",
+  "updated_at": "2017-09-30T08:52:33Z",
   "sender_id": 8,
   "receiver_id": 4,
   "sender_type": "User",
@@ -1809,8 +1877,8 @@ curl https://app.textus.com/api/messages/:id \
   "deliver_at": null,
   "from_autoresponse": null,
   "id": 42,
-  "created_at": "2017-09-09T03:22:20Z",
-  "updated_at": "2017-09-26T22:56:02Z",
+  "created_at": "2017-09-08T20:30:15Z",
+  "updated_at": "2017-10-01T21:40:42Z",
   "sender_id": 9,
   "receiver_id": 5,
   "sender_type": "User",
@@ -1856,8 +1924,8 @@ curl https://app.textus.com/api/opt_outs \
     "organization_id": 61,
     "opt_in": false,
     "id": 42,
-    "created_at": "2017-09-15T18:10:16Z",
-    "updated_at": "2017-09-27T20:14:40Z",
+    "created_at": "2017-09-13T08:21:16Z",
+    "updated_at": "2017-10-02T02:01:59Z",
     "phone": "12230000071"
   }
 ]
@@ -1896,8 +1964,8 @@ curl https://app.textus.com/api/opt_outs \
   "organization_id": 62,
   "opt_in": false,
   "id": 42,
-  "created_at": "2017-09-13T22:03:09Z",
-  "updated_at": "2017-09-26T12:07:25Z",
+  "created_at": "2017-09-03T22:44:13Z",
+  "updated_at": "2017-09-30T13:21:19Z",
   "phone": "12230000072"
 }
 ```
@@ -1931,8 +1999,8 @@ curl https://app.textus.com/api/opt_outs/:id \
   "organization_id": 63,
   "opt_in": false,
   "id": 42,
-  "created_at": "2017-09-26T22:57:31Z",
-  "updated_at": "2017-09-26T07:49:04Z",
+  "created_at": "2017-09-30T19:23:06Z",
+  "updated_at": "2017-10-01T12:02:12Z",
   "phone": "12230000073"
 }
 ```
@@ -1964,8 +2032,8 @@ curl https://app.textus.com/api/opt_outs/:id \
   "organization_id": 64,
   "opt_in": false,
   "id": 42,
-  "created_at": "2017-08-30T07:34:57Z",
-  "updated_at": "2017-09-28T01:01:27Z",
+  "created_at": "2017-09-10T10:52:42Z",
+  "updated_at": "2017-10-01T09:59:36Z",
   "phone": "12230000074"
 }
 ```
@@ -1998,8 +2066,8 @@ curl https://app.textus.com/api/opt_outs/:id \
   "organization_id": 65,
   "opt_in": false,
   "id": 42,
-  "created_at": "2017-09-04T16:35:08Z",
-  "updated_at": "2017-09-27T18:18:28Z",
+  "created_at": "2017-10-01T06:35:34Z",
+  "updated_at": "2017-09-30T19:01:08Z",
   "phone": "12230000075"
 }
 ```
@@ -2032,10 +2100,10 @@ curl https://app.textus.com/api/tags \
 
 ```json
 [
+  "et",
   "dolorem",
-  "voluptate",
-  "labore",
-  "fuga"
+  "quo",
+  "vel"
 ]
 ```
 
@@ -2072,7 +2140,7 @@ curl https://app.textus.com/api/users \
 ```json
 [
   {
-    "email": "aidan_conroy@johnson.org",
+    "email": "jaida.pouros@bednar.co",
     "first_name": "Quickleft",
     "last_name": "User",
     "account_id": 53,
@@ -2083,8 +2151,8 @@ curl https://app.textus.com/api/users \
     "forward_messages": "never",
     "terms_accepted": false,
     "id": 42,
-    "created_at": "2017-09-02T23:39:55Z",
-    "updated_at": "2017-09-27T10:01:36Z"
+    "created_at": "2017-09-28T15:17:43Z",
+    "updated_at": "2017-10-01T01:38:47Z"
   }
 ]
 ```
@@ -2117,7 +2185,7 @@ curl https://app.textus.com/api/users/:id \
 
 ```json
 {
-  "email": "shyanne@turner.biz",
+  "email": "brenda@bernhard.net",
   "first_name": "Quickleft",
   "last_name": "User",
   "account_id": 54,
@@ -2128,8 +2196,8 @@ curl https://app.textus.com/api/users/:id \
   "forward_messages": "never",
   "terms_accepted": false,
   "id": 42,
-  "created_at": "2017-09-14T07:16:26Z",
-  "updated_at": "2017-09-27T18:40:51Z"
+  "created_at": "2017-09-18T06:06:00Z",
+  "updated_at": "2017-10-01T20:40:50Z"
 }
 ```
 
@@ -2157,7 +2225,7 @@ curl https://app.textus.com/api/users/current \
 ```json
 [
   {
-    "email": "nick@purdyjaskolski.name",
+    "email": "janae@murphy.com",
     "first_name": "Quickleft",
     "last_name": "User",
     "account_id": 55,
@@ -2168,8 +2236,8 @@ curl https://app.textus.com/api/users/current \
     "forward_messages": "never",
     "terms_accepted": false,
     "id": 42,
-    "created_at": "2017-09-17T10:52:29Z",
-    "updated_at": "2017-09-26T22:59:04Z"
+    "created_at": "2017-09-21T16:12:27Z",
+    "updated_at": "2017-10-01T14:48:28Z"
   }
 ]
 ```
@@ -2208,8 +2276,8 @@ curl https://app.textus.com/api/web_hooks \
     "version": "2",
     "secret": "notasecret",
     "id": 42,
-    "created_at": "2017-09-13T10:00:31Z",
-    "updated_at": "2017-09-27T10:47:14Z"
+    "created_at": "2017-09-06T01:28:29Z",
+    "updated_at": "2017-09-30T12:33:46Z"
   }
 ]
 ```
@@ -2235,7 +2303,7 @@ curl https://app.textus.com/api/web_hooks \
      --user {username}:{api_key} \ 
      --header "Content-Type": "application/json \ 
      --request POST \ 
-     --data '{"url":"http://example.com/arch.fay"}'
+     --data '{"url":"http://example.com/sean"}'
 ```
 
 
@@ -2248,8 +2316,8 @@ curl https://app.textus.com/api/web_hooks \
   "version": "2",
   "secret": "notasecret",
   "id": 42,
-  "created_at": "2017-09-26T16:24:56Z",
-  "updated_at": "2017-09-27T21:18:15Z"
+  "created_at": "2017-09-03T17:03:14Z",
+  "updated_at": "2017-09-30T19:13:02Z"
 }
 ```
 
@@ -2285,8 +2353,8 @@ curl https://app.textus.com/api/web_hooks/:id \
   "version": "2",
   "secret": "notasecret",
   "id": 42,
-  "created_at": "2017-09-10T16:40:43Z",
-  "updated_at": "2017-09-27T22:08:00Z"
+  "created_at": "2017-09-23T20:14:45Z",
+  "updated_at": "2017-10-02T05:55:16Z"
 }
 ```
 
@@ -2320,8 +2388,8 @@ curl https://app.textus.com/api/web_hooks/:id \
   "version": "2",
   "secret": "notasecret",
   "id": 42,
-  "created_at": "2017-09-17T12:06:35Z",
-  "updated_at": "2017-09-26T17:46:00Z"
+  "created_at": "2017-09-04T19:24:53Z",
+  "updated_at": "2017-10-01T21:45:58Z"
 }
 ```
 
@@ -2356,8 +2424,8 @@ curl https://app.textus.com/api/web_hooks/:id \
   "version": "2",
   "secret": "notasecret",
   "id": 42,
-  "created_at": "2017-09-21T21:24:00Z",
-  "updated_at": "2017-09-26T11:54:45Z"
+  "created_at": "2017-09-20T18:32:31Z",
+  "updated_at": "2017-10-01T17:48:52Z"
 }
 ```
 
